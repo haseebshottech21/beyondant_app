@@ -27,7 +27,7 @@ class MyDrawer extends StatelessWidget {
       child: Container(
         color: const Color(0xFF242424),
         child: ListView(
-          physics: const NeverScrollableScrollPhysics(),
+          physics: const ClampingScrollPhysics(),
           // Important: Remove any padding from the ListView.
           // padding: EdgeInsets.zero,
           children: [

@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:beyondant_new_app/Model/socialMediaAccountModel/all_social_media_account_model.dart';
 import 'package:beyondant_new_app/Pages/CommonWidgets/beyond_table_search_field.dart';
 import 'package:beyondant_new_app/Pages/Drawer/drawer.dart';
+import 'package:beyondant_new_app/Pages/SocialMediaAccounts/AllSocialMediaAccounts/manage_all_social_media_account.dart';
+import 'package:beyondant_new_app/Pages/SocialMediaAccounts/socialMediaAccountWidget/sma_button.dart';
 import 'package:beyondant_new_app/Pages/common_widgets/beyond_appbar.dart';
 import 'package:beyondant_new_app/Pages/common_widgets/beyond_circular_progress.dart';
 import 'package:beyondant_new_app/Pages/common_widgets/beyond_table_background.dart';
@@ -107,18 +109,29 @@ class _AllSocialMediaAccountsState extends State<AllSocialMediaAccounts> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 10.0,
-                        vertical: 15.0,
+                        vertical: 10.0,
                       ),
-                      child: Text(
-                        'All Socail Media Accounts',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'All Socail Media Accounts',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          ManageAccountBtn(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(
+                                  ManageAllSocialMediaAccount.routeName);
+                            },
+                          ),
+                        ],
                       ),
                     ),
                     Padding(

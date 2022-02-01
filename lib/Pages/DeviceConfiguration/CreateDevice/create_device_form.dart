@@ -5,6 +5,7 @@ import 'package:beyondant_new_app/Pages/common_widgets/beyond_circular_progress.
 import 'package:beyondant_new_app/utility/utility.dart';
 import 'package:beyondant_new_app/utils/colors.dart';
 import 'package:beyondant_new_app/utils/global_constant.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -74,33 +75,6 @@ class _CreateDeviceFormState extends State<CreateDeviceForm> {
         context,
       );
     }
-
-    // if (deviceName.text.isNotEmpty ||
-    //     orderNumber.text.isNotEmpty ||
-    //     getBusinessCardId != -1) {
-    //   // if (deviceURL.text.isNotEmpty ||
-    //   //     deviceURL.text != 'https://beyondant.com/') {
-    //   //   // showDialog(
-    //   //   //   context: context,
-    //   //   //   builder: (ctxt) => const AlertDialog(
-    //   //   //     title: Text("Device URL must be:  https://beyondant.com/"),
-    //   //   //   ),
-    //   //   // );
-    //   //   Fluttertoast.showToast(
-    //   //     msg: 'Device URL must be: https://beyondant.com/',
-    //   //   );
-    //   // }
-    //   // deviceURL.text.isEmpty == 'https://beyondant.com/';
-    //   await createApi.createNewDevice(
-    //     '/devices/create/beyondantadmi',
-    //     formData,
-    //     context,
-    //   );
-    // } else {
-    //   Fluttertoast.showToast(
-    //     msg: 'Input field cannot be empty',
-    //   );
-    // }
   }
 
   Future getUser() async {
@@ -210,6 +184,7 @@ class _CreateDeviceFormState extends State<CreateDeviceForm> {
                 SearchDropDownField(
                   // context,
                   hintText: 'Select User',
+                  mode: Mode.BOTTOM_SHEET,
                   dropdownItems: createDeviceUsers.map(
                     (users) {
                       // print(users['user_username'].length);
@@ -279,6 +254,8 @@ class _CreateDeviceFormState extends State<CreateDeviceForm> {
                 SearchDropDownField(
                   // context,
                   hintText: 'Select Device Type',
+                  mode: Mode.BOTTOM_SHEET,
+                  // maxHeight: null,
                   dropdownItems: _deviceTypes.map(
                     (devices) {
                       // print(devices);
@@ -453,7 +430,7 @@ class _CreateDeviceFormState extends State<CreateDeviceForm> {
                   height: 35,
                 ),
                 getUserBuisnessCardName.isEmpty
-                    ? Container(
+                    ? SizedBox(
                         height: MediaQuery.of(context).size.height * 0.30,
                         width: MediaQuery.of(context).size.width,
                         child: const Center(

@@ -1,17 +1,13 @@
 import 'dart:convert';
-import 'dart:ui';
-import 'package:beyondant_new_app/API/apis.dart';
 import 'package:beyondant_new_app/Model/userManagementModel/user_managemnet_model.dart';
 import 'package:beyondant_new_app/Pages/Drawer/drawer.dart';
 import 'package:beyondant_new_app/Pages/UserManagment/create_new_user_management.dart';
-import 'package:beyondant_new_app/Pages/UserManagment/user_management_widget/get_total_user.dart';
 import 'package:beyondant_new_app/Pages/UserManagment/user_management_widget/user_management_table.dart';
 import 'package:beyondant_new_app/Pages/common_widgets/beyond_appbar.dart';
 import 'package:beyondant_new_app/Pages/common_widgets/beyond_circular_progress.dart';
 import 'package:beyondant_new_app/utility/utility.dart';
 import 'package:beyondant_new_app/utils/colors.dart';
 import 'package:beyondant_new_app/utils/global_constant.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -33,33 +29,6 @@ class _UserManagementState extends State<UserManagement> {
     getUserManagementList();
     super.initState();
   }
-
-  // Future gettotalUser() async {
-  //   SharedPreferences _prefs = await SharedPreferences.getInstance();
-  //   final refreshToken = _prefs.getString('refresh_token');
-
-  //   setState(() {
-  //     refreshData = refreshToken!;
-  //   });
-  //   final response = await http.get(
-  //       Uri.parse(
-  //         'https://api.beyondant.com:3000/user/get-users',
-  //       ),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         'Authorization': 'Bearer $refreshData',
-  //         // HttpHeaders.authorizationHeader: 'Basic $data',
-  //       });
-
-  //   var body = jsonDecode(response.body);
-  //   // print(body);
-
-  //   setState(() {
-  //     totalUsers = body['users']['count'];
-  //   });
-
-  //   print(totalUsers);
-  // }
 
   int page = 1;
   int? lastPage;
@@ -97,9 +66,11 @@ class _UserManagementState extends State<UserManagement> {
             userProfileType:
                 usermanagement['profileType']['profile_type_name'].toString(),
             // userProfilePic: usermanagement['user_profile_picture'].toString(),
-            userProfilePic: usermanagement['user_profile_picture'] != null
-                ? baseUrlImage + usermanagement['user_profile_picture']
-                : emptyImage,
+            userProfilePic: usermanagement['user_profile_picture'] == null ||
+                    (usermanagement['user_profile_picture'].toString())
+                        .startsWith('user')
+                ? emptyImage
+                : baseUrlImage + usermanagement['user_profile_picture'],
             userQRCode: usermanagement['user_qr_code'].toString(),
             userIsActive: usermanagement['user_is_active'],
           ),
@@ -326,10 +297,8 @@ class _UserManagementState extends State<UserManagement> {
               ),
             )
           else if (userManagement.isEmpty)
-            Container(
-              child: const Center(
-                child: Text('No Data'),
-              ),
+            const Center(
+              child: Text('No Data'),
             )
         ],
       ),

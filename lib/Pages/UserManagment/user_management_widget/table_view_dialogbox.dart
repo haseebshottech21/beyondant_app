@@ -10,6 +10,7 @@ class UserManageViewAlertDialog extends StatefulWidget {
   final String userEmail;
   final String userFirstName;
   final String userLastName;
+  final String userRedirectionURL;
   final String userStatus;
   final String userProfilePice;
   const UserManageViewAlertDialog({
@@ -19,6 +20,7 @@ class UserManageViewAlertDialog extends StatefulWidget {
     required this.userEmail,
     required this.userFirstName,
     required this.userLastName,
+    required this.userRedirectionURL,
     required this.userStatus,
     required this.userProfilePice,
     Key? key,
@@ -105,31 +107,37 @@ class _UserManageViewAlertDialogState extends State<UserManageViewAlertDialog> {
               const SizedBox(
                 height: 20,
               ),
-              viewUserContent('Date Created', widget.userDateCreated),
+              viewUserContent(
+                  title: 'Date Created', detail: widget.userDateCreated),
               const Divider(
                 color: Colors.black26,
               ),
-              viewUserContent('User Name', widget.userName),
+              viewUserContent(title: 'User Name', detail: widget.userName),
               const Divider(
                 color: Colors.black26,
               ),
-              viewUserContent('User Email', widget.userEmail),
+              viewUserContent(title: 'User Email', detail: widget.userEmail),
               const Divider(
                 color: Colors.black26,
               ),
-              viewUserContent('User First Name', widget.userFirstName),
+              viewUserContent(
+                  title: 'User First Name', detail: widget.userFirstName),
               const Divider(
                 color: Colors.black26,
               ),
-              viewUserContent('User Last Name', widget.userLastName),
+              viewUserContent(
+                  title: 'User Last Name', detail: widget.userLastName),
               const Divider(
                 color: Colors.black26,
               ),
-              viewUserContent('Status', widget.userStatus),
-              // const Divider(
-              //   color: Colors.black26,
-              // ),
-              // viewUserContent('User Profile', widget.userProfile),
+              viewUserContent(
+                  title: 'Redirection URL',
+                  detail: widget.userRedirectionURL,
+                  color: true),
+              const Divider(
+                color: Colors.black26,
+              ),
+              viewUserContent(title: 'Status', detail: widget.userStatus),
             ],
           ),
         ),
@@ -138,10 +146,11 @@ class _UserManageViewAlertDialogState extends State<UserManageViewAlertDialog> {
   }
 }
 
-Column viewUserContent(
-  String title,
-  String detail,
-) {
+Column viewUserContent({
+  required String title,
+  required String detail,
+  bool color = false,
+}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -150,7 +159,7 @@ Column viewUserContent(
         style: const TextStyle(
           // color: Colors.white,
           fontWeight: FontWeight.w700,
-          fontSize: 13,
+          fontSize: 12,
         ),
       ),
       const SizedBox(
@@ -159,9 +168,9 @@ Column viewUserContent(
       Text(
         detail,
         style: TextStyle(
-          color: Colors.grey.shade700,
+          color: color == true ? AppColors.primaryColor : Colors.grey.shade700,
           fontWeight: FontWeight.w400,
-          fontSize: 17,
+          fontSize: 15,
         ),
       ),
     ],

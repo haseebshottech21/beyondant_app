@@ -16,6 +16,8 @@ import 'my_personal_beyond_links_table.dart';
 class MyPersonalBeyondLinks extends StatefulWidget {
   const MyPersonalBeyondLinks({Key? key}) : super(key: key);
 
+  static const routeName = '/my-beyond-link';
+
   @override
   _MyPersonalBeyondLinksState createState() => _MyPersonalBeyondLinksState();
 }

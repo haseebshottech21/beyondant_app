@@ -2,14 +2,13 @@ import 'package:beyondant_new_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 Container userCreateFields(
-  String hintText,
-  TextEditingController controller,
-  BuildContext context,
-) {
+    String hintText, TextEditingController controller, BuildContext context,
+    {bool isEnabled = false}) {
   return Container(
     height: MediaQuery.of(context).size.height * 0.055,
     child: TextFormField(
       controller: controller,
+      enabled: !isEnabled,
       // textAlignVertical: TextAlignVertical.center,
       // textAlign: TextAlign.left,
       // validator: widget.validator,

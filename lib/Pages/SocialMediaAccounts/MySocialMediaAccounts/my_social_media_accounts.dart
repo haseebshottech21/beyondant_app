@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:beyondant_new_app/Pages/Drawer/drawer.dart';
+import 'package:beyondant_new_app/Pages/SocialMediaAccounts/MySocialMediaAccounts/manage_my_social_media_account.dart';
 import 'package:beyondant_new_app/Pages/SocialMediaAccounts/MySocialMediaAccounts/my_social_media_accounts_table.dart';
+import 'package:beyondant_new_app/Pages/SocialMediaAccounts/socialMediaAccountWidget/sma_button.dart';
 import 'package:beyondant_new_app/Pages/common_widgets/beyond_appbar.dart';
 import 'package:beyondant_new_app/Pages/common_widgets/beyond_circular_progress.dart';
 import 'package:beyondant_new_app/Pages/common_widgets/beyond_empty_data.dart';
@@ -78,8 +80,8 @@ class _MySocialMediaAccountsState extends State<MySocialMediaAccounts> {
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
+                        children: [
+                          const Text(
                             'My Socail Media Accounts',
                             style: TextStyle(
                               color: Colors.black,
@@ -87,14 +89,10 @@ class _MySocialMediaAccountsState extends State<MySocialMediaAccounts> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          // IconButton(
-                          //   onPressed: () {},
-                          //   icon: Icon(
-                          //     Icons.add_box,
-                          //     color: AppColors.primaryColor,
-                          //     size: 30.0,
-                          //   ),
-                          // )
+                          ManageAccountBtn(onPressed: () {
+                            Navigator.of(context).pushNamed(
+                                ManageMySocialMediaAccount.routeName);
+                          }),
                         ],
                       ),
                     ),
@@ -105,7 +103,10 @@ class _MySocialMediaAccountsState extends State<MySocialMediaAccounts> {
                             child: circularProgress(),
                           )
                         : mySocialMediaAccounts.isEmpty
-                            ? emptyData(context)
+                            ? emptyDataImage(
+                                context,
+                                'assets/images/socail_media.png',
+                              )
                             : MySocailMediaAccountsTable(mySocialMediaAccounts),
                     const SizedBox(
                       height: 20,
@@ -117,49 +118,6 @@ class _MySocialMediaAccountsState extends State<MySocialMediaAccounts> {
           ),
         ],
       ),
-      // body: Padding(
-      //   padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-      //   child: SingleChildScrollView(
-      //     child: Column(
-      //       crossAxisAlignment: CrossAxisAlignment.start,
-      //       children: [
-      //         Padding(
-      //           padding: const EdgeInsets.symmetric(
-      //               horizontal: 10.0, vertical: 20.0),
-      //           child: Row(
-      //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //             children: [
-      //               const Text(
-      //                 'My Socail Media Accounts',
-      //                 style: TextStyle(
-      //                   color: Colors.black,
-      //                   fontSize: 16.0,
-      //                   fontWeight: FontWeight.bold,
-      //                 ),
-      //               ),
-      //               IconButton(
-      //                 onPressed: () {},
-      //                 icon: Icon(
-      //                   Icons.add_box,
-      //                   color: AppColors.primaryColor,
-      //                   size: 30.0,
-      //                 ),
-      //               )
-      //             ],
-      //           ),
-      //         ),
-      //         mySocialMediaAccounts.length == 0
-      //             ? const Center(
-      //                 child: CircularProgressIndicator(),
-      //               )
-      //             : MySocailMediaAccountsTable(mySocialMediaAccounts),
-      //         const SizedBox(
-      //           height: 20,
-      //         )
-      //       ],
-      //     ),
-      //   ),
-      // ),
     );
   }
 }

@@ -50,15 +50,3 @@ Future<void> checkTokenExipre(
     // print(response.body);
   }
 }
-
-// Future<dynamic> getToken() async {
-//   SharedPreferences preferences = await SharedPreferences.getInstance();
-//   var token = preferences.getString('token');
-//   return token;
-// }
-
-// Future<dynamic> getRefreshToken() async {
-//   SharedPreferences preferences = await SharedPreferences.getInstance();
-//   var refreshToken = preferences.getString('refresh_token');
-//   return refreshToken;
-// }

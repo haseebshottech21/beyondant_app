@@ -1,4 +1,6 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:beyondant_new_app/API/delete.dart';
+import 'package:beyondant_new_app/API/update.dart';
 import 'package:beyondant_new_app/Model/device_type_model.dart';
 import 'package:beyondant_new_app/Pages/CommonWidgets/beyond_device_type_view_dialog.dart';
 import 'package:beyondant_new_app/Pages/CommonWidgets/beyond_table_action_icons.dart';
@@ -8,6 +10,8 @@ import 'package:beyondant_new_app/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'devicetypes_widgets/update_devicetype_dialogbox.dart';
 
 class DeviceTypeTable extends StatefulWidget {
   final VoidCallback getTableData;
@@ -24,6 +28,8 @@ class DeviceTypeTable extends StatefulWidget {
 
 class _DeviceTypeTableState extends State<DeviceTypeTable> {
   BeyondantDeleteAPI delete = BeyondantDeleteAPI();
+  UpdateAPI updateAPI = UpdateAPI();
+  final updateDeviceTypeController = TextEditingController();
 
   Future<void> deleteDeviceType(String deviceName) async {
     bool result = await delete.deleteForAll(
@@ -34,8 +40,26 @@ class _DeviceTypeTableState extends State<DeviceTypeTable> {
       Navigator.pop(context);
       widget.getTableData();
       setState(() {});
+      showToast('Device has been deleted');
     } else {
       showToast('Failed Deleted');
+    }
+  }
+
+  updateDeviceType(String deviceTypeSlug, deviceTypeName) async {
+    // print(json.encode(getManageSMA));
+    // return;
+    bool result = await updateAPI.update(
+      '/device-types/update/$deviceTypeSlug',
+      {'device_type_name': deviceTypeName},
+      context,
+    );
+    if (result == true) {
+      Navigator.pop(context);
+      widget.getTableData();
+      setState(() {});
+    } else {
+      showToast('Failed Update');
     }
   }
 
@@ -113,6 +137,47 @@ class _DeviceTypeTableState extends State<DeviceTypeTable> {
                 ),
                 IconButton(
                   onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) {
+                        return DeviceTypeAlertViewDialog(
+                          title: 'Device Type Detail',
+                          deviceTypeId: deviceType.deviceTypeId,
+                          deviceName: deviceType.deviceTypeName,
+                          deviceStatus: deviceType.deviceTypeIsActive == true
+                              ? 'Yes Active'
+                              : 'No Active',
+                        );
+                      },
+                    );
+                  },
+                  icon: const ActionIcons(icon: FontAwesomeIcons.solidEye),
+                ),
+                IconButton(
+                  onPressed: () {
+                    updateDeviceTypeController.text = deviceType.deviceTypeName;
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return FadeInDown(
+                          child: UpdateDeviceType(
+                            title: 'Update Device Types',
+                            updateController: updateDeviceTypeController,
+                            onPressed: () {
+                              updateDeviceType(
+                                deviceType.deviceTypeSlug,
+                                updateDeviceTypeController.text,
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  icon: const ActionIcons(icon: FontAwesomeIcons.userEdit),
+                ),
+                IconButton(
+                  onPressed: () {
                     // deleteMyPersonalBeyondLink(
                     //   mybeyondLink['business_card_id'].toString(),
                     // );
@@ -135,70 +200,8 @@ class _DeviceTypeTableState extends State<DeviceTypeTable> {
                     icon: FontAwesomeIcons.solidTrashAlt,
                   ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (_) {
-                        return DeviceTypeAlertViewDialog(
-                          title: 'Device Type Detail',
-                          deviceTypeId: deviceType.deviceTypeId,
-                          deviceName: deviceType.deviceTypeName,
-                          deviceStatus: deviceType.deviceTypeIsActive == true
-                              ? 'Yes Active'
-                              : 'No Active',
-                        );
-                      },
-                    );
-                  },
-                  icon: const ActionIcons(icon: FontAwesomeIcons.solidEye),
-                ),
               );
-            }
-                // DataRow(
-                //   cells: [
-                //     devicetyperow('1', 'abc', _switchValue),
-                //     DataCell(
-                //       Text(
-                //         item['device_type_id'].toString(),
-                //       ),
-                //     ),
-                //     DataCell(
-                //       Text(
-                //         item['device_type_name'].toString(),
-                //       ),
-                //     ),
-                //     DataCell(
-                //       CupertinoSwitch(
-                //         activeColor: AppColors.primaryColor,
-                //         value: item['device_type_is_active'],
-                //         onChanged: (value) {
-                //           setState(() {
-                //             item['device_type_is_active'] = value;
-                //           });
-                //         },
-                //       ),
-                //     ),
-                //     DataCell(
-                //       Row(
-                //         mainAxisAlignment:
-                //             MainAxisAlignment.spaceBetween,
-                //         children: [
-                //           TableIcons(icon: Icons.remove_red_eye),
-                //           const SizedBox(
-                //             width: 15,
-                //           ),
-                //           TableIcons(icon: Icons.edit),
-                //           const SizedBox(
-                //             width: 15,
-                //           ),
-                //           TableIcons(icon: Icons.delete),
-                //         ],
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                ).toList(),
+            }).toList(),
           ),
         ),
       ),
@@ -209,8 +212,9 @@ class _DeviceTypeTableState extends State<DeviceTypeTable> {
     String id,
     String deviceName,
     CupertinoSwitch switchValue,
-    IconButton deleteIcon,
     IconButton viewIcon,
+    IconButton editIcon,
+    IconButton deleteIcon,
   ) {
     return DataRow(
       cells: <DataCell>[
@@ -224,16 +228,9 @@ class _DeviceTypeTableState extends State<DeviceTypeTable> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               viewIcon,
-              const SizedBox(
-                width: 15,
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const ActionIcons(icon: FontAwesomeIcons.userEdit),
-              ),
-              const SizedBox(
-                width: 15,
-              ),
+              const SizedBox(width: 15),
+              editIcon,
+              const SizedBox(width: 15),
               deleteIcon,
             ],
           ),

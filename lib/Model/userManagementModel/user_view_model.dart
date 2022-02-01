@@ -6,6 +6,7 @@ class UserViewModel {
   String userEmail;
   bool userIsActive;
   String userProfilePic;
+  String userRedirectionURL;
   String userCreateAt;
   // String userCoverPic;
 
@@ -17,6 +18,7 @@ class UserViewModel {
     required this.userEmail,
     required this.userIsActive,
     required this.userProfilePic,
+    required this.userRedirectionURL,
     required this.userCreateAt,
     // required this.userCoverPic,
   });
@@ -29,6 +31,7 @@ class UserViewModel {
         userEmail: user['user_email'].toString(),
         userIsActive: user['user_is_active'],
         userProfilePic: user['user_profile_picture'].toString(),
+        userRedirectionURL: user['user_redirection_url'].toString(),
         userCreateAt: user['user_created_at'].toString(),
       );
 }

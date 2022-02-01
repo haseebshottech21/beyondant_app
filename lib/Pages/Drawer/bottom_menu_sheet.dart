@@ -39,9 +39,9 @@ class _BottomMenuSheetProfileState extends State<BottomMenuSheetProfile> {
             return Container(
               padding: const EdgeInsets.symmetric(
                 horizontal: 15,
-                vertical: 15,
+                vertical: 12,
               ),
-              height: MediaQuery.of(context).size.height * 0.33,
+              height: MediaQuery.of(context).size.height * 0.35,
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(

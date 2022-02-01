@@ -5,8 +5,8 @@ class CreateDeviceTypeDialog extends StatefulWidget {
   final String title;
   final TextEditingController firstcontroller;
   final TextEditingController secondcontroller;
-  VoidCallback onPressed;
-  CreateDeviceTypeDialog({
+  final VoidCallback onPressed;
+  const CreateDeviceTypeDialog({
     required this.title,
     required this.firstcontroller,
     required this.secondcontroller,

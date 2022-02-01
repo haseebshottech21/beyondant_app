@@ -128,53 +128,6 @@ class _VisitProfileState extends State<VisitProfile> {
         getData(body);
         isLoaded = true;
       }
-      // for (var visitprofile in body['user']) {
-      //   visitProfile.add(
-      //       VisitProfielModel(
-      //     userId: visitprofile['user_id'].toString(),
-      //     userFirstName: visitprofile['user_first_name'].toString(),
-      //     userLastName: visitprofile['user_last_name'].toString(),
-      //     userUsername: visitprofile['user_username'].toString(),
-      //     userEmail: visitprofile['user_email'].toString(),
-      //     userProfilePic:
-      //         baseUrlImage + visitprofile['user_profile_picture'].toString(),
-      //     userDateOfBirth:
-      //         visitprofile['user_personal_details']['user_dob'].toString(),
-      //     userFax: visitprofile['user_personal_details']['user_fax'].toString(),
-      //     userZipCode:
-      //         visitprofile['user_personal_details']['user_zip'].toString(),
-      //     userCity:
-      //         visitprofile['user_personal_details']['user_city'].toString(),
-      //     userState:
-      //         visitprofile['user_personal_details']['user_state'].toString(),
-      //     userWebsite:
-      //         visitprofile['user_personal_details']['user_website'].toString(),
-      //     userPhoneNumber: visitprofile['user_personal_details']
-      //             ['user_phone_number']
-      //         .toString(),
-      //     userMobileNumber: visitprofile['user_personal_details']
-      //             ['user_mobile_number']
-      //         .toString(),
-      //     userStreetAddress:
-      //         visitprofile['user_personal_details']['user_dob'].toString(),
-      //     companyCity:
-      //         visitprofile['user_company_details']['company_city'].toString(),
-      //     companyName:
-      //         visitprofile['user_company_details']['company_name'].toString(),
-      //     companyDetail: visitprofile['user_company_details']['company_details']
-      //         .toString(),
-      //     companyNoOfEmployees: visitprofile['user_company_details']
-      //             ['no_of_employees']
-      //         .toString(),
-      //     companyPhoneNumber: visitprofile['user_company_details']
-      //             ['company_phone_number']
-      //         .toString(),
-      //   ));
-      // }
-      // isLoading = false;
-      // setState(() {
-      //   visitProfile = body['user'];
-      // });
     } else if (body['statusCode'] == 401) {
       // print(body);
       checkTokenExipre(context, getVisitProfile);

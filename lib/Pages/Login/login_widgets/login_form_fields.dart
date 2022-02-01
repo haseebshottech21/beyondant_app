@@ -29,7 +29,9 @@ class _UserFormFieldState extends State<UserFormField> {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderSide: const BorderSide(color: Color(0xFF000000)),
+          borderSide: const BorderSide(
+            color: Color(0xFF000000),
+          ),
           borderRadius: BorderRadius.circular(30.0),
         ),
         focusedBorder: OutlineInputBorder(

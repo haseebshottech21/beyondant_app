@@ -81,6 +81,34 @@ class BeyondantAPI {
     }
   }
 
+  Future createMyContact(String url, Map data, BuildContext context) async {
+    final response = await http.post(
+      Uri.parse(baseURL + url),
+      headers: {
+        // "Content-Type": "application/json",
+        'Authorization': 'Bearer ${await getSharedPrefenceValue(token)}',
+        // HttpHeaders.authorizationHeader: 'Basic $data',
+      },
+      body: data,
+    );
+
+    if (response.statusCode == 200) {
+      var body = response.body;
+      // // final contact = await FlutterContacts.openExternalInsert();
+      // Contact.fromVCard('BEGIN:VCARD\n'
+      //     'VERSION:3.0\n'
+      //     'N:;Joe;;;\n'
+      //     'TEL;TYPE=HOME:123456\n'
+      //     'END:VCARD');
+      print(body);
+      Navigator.pop(context);
+    } else {
+      showToast(
+        'Contact Failed',
+      );
+    }
+  }
+
   Future createNewDevice(String url, Map data, BuildContext context) async {
     final response = await http.post(
       Uri.parse(baseURL + url),
@@ -131,33 +159,75 @@ class BeyondantAPI {
 
     // print(response.statusCode);
     if (response.statusCode == 201) {
+      // showDialog(
+      //   context: context,
+      //   builder: (_) {
+      //     // return AlertDialog(
+      //     //   content: Column(
+      //     //     mainAxisSize: MainAxisSize.min,
+      //     //     children: const [
+      //     //       CircleAvatar(
+      //     //         radius: 50,
+      //     //         backgroundColor: Colors.green,
+      //     //         child: Icon(Icons.check),
+      //     //       ),
+      //     //       SizedBox(
+      //     //         height: 10,
+      //     //       ),
+      //     //       Text(
+      //     //         'New User Created Successfuly',
+      //     //         style: TextStyle(
+      //     //           fontSize: 18,
+      //     //         ),
+      //     //         textAlign: TextAlign.center,
+      //     //       )
+      //     //     ],
+      //     //   ),
+      //     // );
+      //     return const SuccessDialog(
+      //       description: 'Successfully Created New User',
+      //       title: '',
+      //     );
+      // },
+      // );
       showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                CircleAvatar(
-                  radius: 50,
-                  backgroundColor: Colors.green,
-                  child: Icon(Icons.check),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'New User Created Successfuly',
-                  style: TextStyle(
-                    fontSize: 18,
+          context: context,
+          barrierDismissible: false,
+          builder: (ctx) {
+            // Future.delayed(Duration(seconds: 15)).then((value) {
+            //   Navigator.of(context).pop();
+            // });
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // SizedBox(
+                  //   height: 100,
+                  //   width: MediaQuery.of(context).size.width * 0.40,
+                  //   child: const CircleAvatar(
+                  //     backgroundColor: Colors.green,
+                  //     child: FaIcon(FontAwesomeIcons.check),
+                  //   ),
+                  // ),
+                  Image.asset(
+                    'assets/images/checked.gif',
+                    height: MediaQuery.of(context).size.height * 0.20,
+                    width: MediaQuery.of(context).size.width * 0.20,
                   ),
-                  textAlign: TextAlign.center,
-                )
-              ],
-            ),
-          );
-        },
-      );
+                  const Text(
+                    'SuccessFully Created',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          });
       Timer(
         const Duration(seconds: 3),
         () => Navigator.pushReplacement(

@@ -169,12 +169,14 @@ class UserDataTable extends DataTableSource {
       IconButton(
         onPressed: () {
           // print('click');
-          // Navigator.pushReplacement(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => const EditAllBeyondLinks(),
-          //   ),
-          // );
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => EditAllBeyondLinks(
+                userId: allbeyondLinkModel.businessCardId,
+                userName: allbeyondLinkModel.userUsername,
+              ),
+            ),
+          );
         },
         icon: const ActionIcons(icon: FontAwesomeIcons.userEdit),
       ),

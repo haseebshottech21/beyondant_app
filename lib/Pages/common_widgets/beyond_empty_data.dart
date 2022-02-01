@@ -22,3 +22,11 @@ Container emptyData(BuildContext context) {
     ),
   );
 }
+
+Container emptyDataImage(BuildContext context, String image) {
+  return Container(
+    alignment: Alignment.center,
+    height: MediaQuery.of(context).size.height * 0.60,
+    child: Image.asset(image),
+  );
+}

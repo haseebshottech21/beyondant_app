@@ -15,6 +15,8 @@ import 'all_beyond_links_table.dart';
 class AllBeyondLinks extends StatefulWidget {
   const AllBeyondLinks({Key? key}) : super(key: key);
 
+  static const routeName = '/all-beyond-link';
+
   @override
   _AllBeyondLinksState createState() => _AllBeyondLinksState();
 }
@@ -103,13 +105,16 @@ class _AllBeyondLinksState extends State<AllBeyondLinks> {
       appBar: myAppBar('All Beyond Links'),
       body: Stack(
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/background.jpg'),
-                fit: BoxFit.cover,
+          SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/background.jpg'),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),

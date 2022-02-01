@@ -1,12 +1,13 @@
 import 'dart:io';
+import 'package:beyondant_new_app/Pages/BeyondLinks/AllBeyondLinks/all_beyond_links.dart';
+import 'package:beyondant_new_app/Pages/BeyondLinks/MyBeyondLinks/my_personal_beyond_links.dart';
 import 'package:beyondant_new_app/Pages/Dashboard/dashboard.dart';
 import 'package:beyondant_new_app/Pages/Login/login.dart';
+import 'package:beyondant_new_app/Pages/SocialMediaAccounts/MySocialMediaAccounts/manage_my_social_media_account.dart';
 import 'package:beyondant_new_app/Pages/Splash/splash.dart';
-import 'package:beyondant_new_app/utility/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Pages/SocialMediaPlatform/social_medial_platform.dart';
-import 'Pages/UserManagment/user_management.dart';
+import 'Pages/SocialMediaAccounts/AllSocialMediaAccounts/manage_all_social_media_account.dart';
 
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
@@ -37,9 +38,22 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme.of(context),
       ),
       home: const Splash(),
+      // home: CreateNewUserManagement(),
       routes: {
         LoginScreen.routeName: (context) => const LoginScreen(),
         BeyondantDashboard.routeName: (context) => const BeyondantDashboard(),
+
+        // Beyond Links
+        MyPersonalBeyondLinks.routeName: (context) =>
+            const MyPersonalBeyondLinks(),
+        AllBeyondLinks.routeName: (context) => const AllBeyondLinks(),
+        // EditAllBeyondLinks.routeName: (context) => const EditAllBeyondLinks(),
+
+        // Social Media Account
+        ManageMySocialMediaAccount.routeName: (context) =>
+            const ManageMySocialMediaAccount(),
+        ManageAllSocialMediaAccount.routeName: (context) =>
+            const ManageAllSocialMediaAccount(),
       },
     );
   }

@@ -7,7 +7,6 @@ import 'package:beyondant_new_app/Pages/common_widgets/beyond_circular_progress.
 import 'package:beyondant_new_app/Pages/common_widgets/show_toast.dart';
 import 'package:beyondant_new_app/utility/utility.dart';
 import 'package:beyondant_new_app/utils/global_constant.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'create_device_types.dart';
@@ -72,13 +71,16 @@ class _DeviceTypesBeyondantState extends State<DeviceTypesBeyondant> {
       appBar: myAppBar('Device Types'),
       body: Stack(
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/background.jpg'),
-                fit: BoxFit.cover,
+          SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/background.jpg'),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -123,10 +125,10 @@ class _DeviceTypesBeyondantState extends State<DeviceTypesBeyondant> {
                         : FadeInDown(
                             child: DeviceTypeTable(
                               deviceTypeTable: deviceType,
-                              getTableData: () async {
-                                await getDeviceTypeList();
-                                showToast('Device has been Deleted');
+                              getTableData: () {
+                                getDeviceTypeList();
                               },
+                              // showToast('Device has been Deleted');
                             ),
                           ),
                   ],

@@ -39,14 +39,16 @@ class BottomVisitProfileDetail extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-            visitProfileDetail(
-              FontAwesomeIcons.mapMarkerAlt,
-              'Street Address',
-              bottomProfileData['user_street_address'].toString(),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
+            if (bottomProfileData['user_street_address'] != 'null')
+              visitProfileDetail(
+                FontAwesomeIcons.mapMarkerAlt,
+                'Street Address',
+                bottomProfileData['user_street_address'].toString(),
+              ),
+            if (bottomProfileData['user_street_address'] != 'null')
+              const SizedBox(
+                height: 30,
+              ),
             visitProfileDetail(
               FontAwesomeIcons.city,
               'City',
@@ -55,62 +57,76 @@ class BottomVisitProfileDetail extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            visitProfileDetail(
-              FontAwesomeIcons.flagUsa,
-              'State',
-              bottomProfileData['user_state'].toString(),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            visitProfileDetail(
-              FontAwesomeIcons.paste,
-              'Zip Code',
-              bottomProfileData['user_zip'].toString(),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            visitProfileDetail(
-              FontAwesomeIcons.globe,
-              'Website',
-              bottomProfileData['user_website'].toString(),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            visitProfileDetail(
-              FontAwesomeIcons.calendarWeek,
-              'Date Of Birth',
-              bottomProfileData['user_dob'].toString(),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            visitProfileDetail(
-              FontAwesomeIcons.mobileAlt,
-              'User Mobile Number',
-              bottomProfileData['user_mobile_number'].toString(),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            visitProfileDetail(
-              FontAwesomeIcons.phoneVolume,
-              'User Phone Number',
-              bottomProfileData['user_phone_number'].toString(),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            visitProfileDetail(
-              FontAwesomeIcons.fax,
-              'User Fax',
-              bottomProfileData['user_fax'].toString(),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
+            if (bottomProfileData['user_state'] != 'null')
+              visitProfileDetail(
+                FontAwesomeIcons.flagUsa,
+                'State',
+                bottomProfileData['user_state'].toString(),
+              ),
+            if (bottomProfileData['user_state'] != 'null')
+              const SizedBox(
+                height: 30,
+              ),
+            if (bottomProfileData['user_zip'] != 'null')
+              visitProfileDetail(
+                FontAwesomeIcons.paste,
+                'Zip Code',
+                bottomProfileData['user_zip'].toString(),
+              ),
+            if (bottomProfileData['user_zip'] != 'null')
+              const SizedBox(
+                height: 30,
+              ),
+            if (bottomProfileData['user_website'] != 'null')
+              visitProfileDetail(
+                FontAwesomeIcons.globe,
+                'Website',
+                bottomProfileData['user_website'].toString(),
+              ),
+            if (bottomProfileData['user_website'] != 'null')
+              const SizedBox(
+                height: 30,
+              ),
+            if (bottomProfileData['user_dob'] != 'null')
+              visitProfileDetail(
+                FontAwesomeIcons.calendarWeek,
+                'Date Of Birth',
+                bottomProfileData['user_dob'].toString(),
+              ),
+            if (bottomProfileData['user_dob'] != 'null')
+              const SizedBox(
+                height: 30,
+              ),
+            if (bottomProfileData['user_mobile_number'] != 'null')
+              visitProfileDetail(
+                FontAwesomeIcons.mobileAlt,
+                'User Mobile Number',
+                bottomProfileData['user_mobile_number'].toString(),
+              ),
+            if (bottomProfileData['user_mobile_number'] != 'null')
+              const SizedBox(
+                height: 30,
+              ),
+            if (bottomProfileData['user_phone_number'] != 'null')
+              visitProfileDetail(
+                FontAwesomeIcons.phoneVolume,
+                'User Phone Number',
+                bottomProfileData['user_phone_number'].toString(),
+              ),
+            if (bottomProfileData['user_phone_number'] != 'null')
+              const SizedBox(
+                height: 30,
+              ),
+            if (bottomProfileData['user_fax'] != 'null')
+              visitProfileDetail(
+                FontAwesomeIcons.fax,
+                'User Fax',
+                bottomProfileData['user_fax'].toString(),
+              ),
+            if (bottomProfileData['user_fax'] != 'null')
+              const SizedBox(
+                height: 30,
+              ),
             if (bottomProfileData['company_email'] != '')
               visitProfileDetail(
                 FontAwesomeIcons.envelopeOpenText,
@@ -147,9 +163,10 @@ class BottomVisitProfileDetail extends StatelessWidget {
                 'Total Employement In Company',
                 bottomProfileData['no_of_employees'].toString(),
               ),
-            const SizedBox(
-              height: 20,
-            ),
+            if (bottomProfileData['no_of_employees'] != '')
+              const SizedBox(
+                height: 20,
+              ),
           ],
         ),
       ),

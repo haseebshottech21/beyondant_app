@@ -5,6 +5,7 @@ import 'package:beyondant_new_app/Model/userManagementModel/user_view_model.dart
 import 'package:beyondant_new_app/Pages/CommonWidgets/beyond_table_action_icons.dart';
 import 'package:beyondant_new_app/Pages/UserManagment/user_management_widget/table_delete_dialogbox.dart';
 import 'package:beyondant_new_app/Pages/UserManagment/user_management_widget/table_view_dialogbox.dart';
+import 'package:beyondant_new_app/Pages/UserManagment/user_visit_profile/user_visit_profile.dart';
 import 'package:beyondant_new_app/utility/utility.dart';
 import 'package:beyondant_new_app/utils/colors.dart';
 import 'package:beyondant_new_app/utils/global_constant.dart';
@@ -61,22 +62,10 @@ class _UserManagementTableState extends State<UserManagementTable> {
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.9),
             border: const Border(
-              top: BorderSide(
-                color: Colors.grey,
-                // width: 1,
-              ),
-              left: BorderSide(
-                color: Colors.grey,
-                // width: 1,
-              ),
-              right: BorderSide(
-                color: Colors.grey,
-                // width: 1,
-              ),
-              bottom: BorderSide(
-                color: Colors.grey,
-                // width: 1,
-              ),
+              top: BorderSide(color: Colors.grey),
+              left: BorderSide(color: Colors.grey),
+              right: BorderSide(color: Colors.grey),
+              bottom: BorderSide(color: Colors.grey),
             ),
           ),
           child: DataTable(
@@ -96,33 +85,20 @@ class _UserManagementTableState extends State<UserManagementTable> {
               DataColumn(
                   label: const Text('First Name'), onSort: (columnIndex, _) {}),
               DataColumn(
-                label: const Text('Last Name'),
-                onSort: (columnIndex, _) {},
-              ),
+                  label: const Text('Last Name'), onSort: (columnIndex, _) {}),
               DataColumn(
-                label: const Text('Username'),
-                onSort: (columnIndex, _) {},
-              ),
+                  label: const Text('Username'), onSort: (columnIndex, _) {}),
               DataColumn(
-                label: const Text('Profile Type'),
-                onSort: (columnIndex, _) {},
-              ),
+                  label: const Text('Profile Type'),
+                  onSort: (columnIndex, _) {}),
               DataColumn(
-                label: const Text('Picture'),
-                onSort: (columnIndex, _) {},
-              ),
+                  label: const Text('Picture'), onSort: (columnIndex, _) {}),
               DataColumn(
-                label: const Text('QR Code'),
-                onSort: (columnIndex, _) {},
-              ),
+                  label: const Text('QR Code'), onSort: (columnIndex, _) {}),
               DataColumn(
-                label: const Text('Status'),
-                onSort: (columnIndex, _) {},
-              ),
+                  label: const Text('Status'), onSort: (columnIndex, _) {}),
               DataColumn(
-                label: const Text('Action'),
-                onSort: (columnIndex, _) {},
-              ),
+                  label: const Text('Action'), onSort: (columnIndex, _) {}),
             ],
             rows: widget.userManagementTable.map((usermanage) {
               return usermanagementrow(
@@ -182,15 +158,21 @@ class _UserManagementTableState extends State<UserManagementTable> {
                           // print(formatedDate);
                           return UserManageViewAlertDialog(
                             title: 'Device Type Detail',
+                            userName: userView!.userUsername,
                             userEmail: userView!.userEmail,
                             userDateCreated: formatedDate,
                             userFirstName: userView!.userFirstName,
                             userLastName: userView!.userLastName,
-                            userName: userView!.userUsername,
+                            userRedirectionURL:
+                                userView!.userRedirectionURL == 'null'
+                                    ? 'No Redirection URL Found'
+                                    : userView!.userRedirectionURL,
                             userStatus: userView!.userIsActive == true
                                 ? 'ENABLE'
                                 : 'DISABLE',
-                            userProfilePice: userView!.userProfilePic == 'null'
+                            userProfilePice: userView!.userProfilePic ==
+                                        'null' ||
+                                    userView!.userProfilePic.startsWith('user')
                                 ? emptyImage
                                 : baseUrlImage + userView!.userProfilePic,
                           );
@@ -198,9 +180,20 @@ class _UserManagementTableState extends State<UserManagementTable> {
                       );
                     }
                   },
-                  icon: const ActionIcons(
-                    icon: FontAwesomeIcons.solidEye,
-                  ),
+                  icon: const ActionIcons(icon: FontAwesomeIcons.solidEye),
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UserVisitProfile(
+                          visitUsername: 'haseebdev21',
+                        ),
+                      ),
+                    );
+                  },
+                  icon: const ActionIcons(icon: FontAwesomeIcons.userAlt),
                 ),
               );
             }).toList(),
@@ -211,17 +204,19 @@ class _UserManagementTableState extends State<UserManagementTable> {
   }
 
   DataRow usermanagementrow(
-      int index,
-      String id,
-      String firstname,
-      String lastname,
-      String username,
-      String profiletype,
-      String profilepicture,
-      String qrcode,
-      CupertinoSwitch status,
-      IconButton deleteIcon,
-      IconButton viewIcon) {
+    int index,
+    String id,
+    String firstname,
+    String lastname,
+    String username,
+    String profiletype,
+    String profilepicture,
+    String qrcode,
+    CupertinoSwitch status,
+    IconButton deleteIcon,
+    IconButton viewIcon,
+    IconButton visitProfileIcon,
+  ) {
     return DataRow.byIndex(
       index: index,
       color: MaterialStateColor.resolveWith(
@@ -328,12 +323,7 @@ class _UserManagementTableState extends State<UserManagementTable> {
                   const SizedBox(
                     width: 10,
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const ActionIcons(
-                      icon: FontAwesomeIcons.userAlt,
-                    ),
-                  ),
+                  visitProfileIcon
                 ],
               ),
             ],
